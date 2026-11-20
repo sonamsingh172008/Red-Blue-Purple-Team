@@ -1,131 +1,231 @@
-# Red Team Report
+# Red Team Investigation Report – HawkEye Lab
 
 ## 1. Introduction
 
-The purpose of this report is to investigate suspicious activities observed during the HawkEye cybersecurity investigation.
+This report presents the Red Team investigation of suspicious network activities identified during the HawkEye cybersecurity lab exercise.
 
-The Red Team approach focuses on understanding possible attacker behaviour, including how an attacker may communicate with a compromised system and what techniques may be involved.
+The purpose of the investigation is to understand possible attacker behaviour by examining network traffic, identifying suspicious external connections, investigating executable downloads, and mapping observed activities to the MITRE ATT&CK framework.
 
-## 2. Objective
+The investigation uses the available HawkEye PCAP file and Wireshark to examine network evidence.
 
-- Understand suspicious network activity.
-- Study possible malware communication methods.
-- Identify suspicious IP addresses and domains from the available evidence.
-- Understand possible attacker techniques.
-- Map observed behaviour to the MITRE ATT&CK framework.
+## 2. Investigation Objectives
+
+The main objectives of this investigation are:
+
+- Identify potentially suspicious network connections.
+- Investigate possible malware-related communication.
+- Identify external IP addresses and domains involved in the observed traffic.
+- Examine HTTP requests and responses.
+- Identify possible attacker techniques.
+- Map observed activities to the MITRE ATT&CK framework.
+- Provide useful findings for the Blue Team investigation.
 
 ## 3. Investigation Scope
 
-The investigation focuses on the previously collected HawkEye lab evidence and network traffic.
+The investigation focuses on the network traffic captured in the HawkEye lab PCAP file.
 
-The analysis is limited to the available PCAP file and the network activities observed in Wireshark.
+The analysis includes:
 
-No real-world systems will be attacked.
-
-## 4. Evidence Analysis
-
-The available network traffic was examined using Wireshark to identify:
-
-- Suspicious network connections.
 - DNS requests and domain resolutions.
-- HTTP communication.
-- Possible communication with external servers.
-- Potential indicators of automated or suspicious activity.
+- HTTP requests and responses.
+- External IP address communication.
+- A suspicious executable download.
+- Repeated communication between the investigated computer and an external server.
 
-Specific IP addresses and domains identified during the investigation are documented in Section 6.
+Wireshark was used to examine the available network packets.
 
-## 5. MITRE ATT&CK Mapping
+This investigation is limited to the evidence available in the PCAP file. It does not include confirmation of malware execution or direct access to the investigated computer.
 
-The observed network activities were compared with the MITRE ATT&CK framework to identify possible attacker techniques.
+No real-world systems were attacked.
 
-### 5.1 Ingress Tool Transfer (T1105)
+## 4. Tools and Frameworks Used
 
-- **Technique:** Ingress Tool Transfer
-- **Tactic:** Command and Control
-- **Evidence:** HTTP GET request for `tkraw_Protected99.exe`.
-- **Packet:** 210
-- **Explanation:** An executable file was requested from an external server. The server returned an HTTP 200 OK response containing executable content.
+| Tool / Framework | Purpose |
+|---|---|
+| Wireshark | Examining and analysing network packets |
+| HawkEye PCAP | Providing network investigation evidence |
+| MITRE ATT&CK | Mapping observed behaviour to known attacker techniques |
+| VirusTotal | Intended for further investigation of suspicious indicators |
 
-This activity is consistent with file transfer behaviour described by MITRE ATT&CK. However, the malicious nature of the file has not been independently verified, and its execution has not been confirmed.
+## 5. MITRE ATT&CK Technique Mapping
 
-**Reference:** https://attack.mitre.org/techniques/T1105/
+The observed network activities were compared with the MITRE ATT&CK framework to identify techniques that may be relevant to the investigation.
 
-### 5.2 Application Layer Protocol: Web Protocols (T1071.001)
+These mappings are preliminary because network evidence alone cannot establish the attacker's intent or confirm that a system was compromised.
 
-- **Technique:** Web Protocols
-- **Tactic:** Command and Control
-- **Evidence:** Repeated HTTP GET requests to `66.171.248.178`.
-- **Source IP:** `10.4.10.132`
-- **Explanation:** Repeated HTTP communication was observed at approximately 10-minute intervals.
+### 5.1 Ingress Tool Transfer – T1105
 
-This pattern may be consistent with automated communication or possible beaconing activity. However, additional evidence is required to confirm command-and-control behaviour.
+**Tactic:** Command and Control
 
-**Reference:** https://attack.mitre.org/techniques/T1071/001/
+**Evidence:**
+- HTTP GET request for `tkraw_Protected99.exe`.
+- Request packet: 210.
+- Response packet: 3155.
+- External server: `217.182.138.150`.
 
-### 5.3 Mapping Limitations
+**Explanation:**
 
-The MITRE ATT&CK technique mappings are preliminary and based on the network traffic observations.
+The investigated computer requested an executable-named file from an external server. The server returned an HTTP 200 OK response with the content type `application/x-msdownload`.
 
-Further investigation of the downloaded executable, endpoint activity and HTTP communication is required before confirming malicious behaviour.
+This activity is consistent with the transfer of a tool or file from an external system. However, the actual file contents, malicious nature, and execution status have not been independently verified.
+
+**MITRE ATT&CK Reference:**  
+https://attack.mitre.org/techniques/T1105/
+
+### 5.2 Application Layer Protocol: Web Protocols – T1071.001
+
+**Tactic:** Command and Control
+
+**Evidence:**
+- Repeated HTTP GET requests.
+- Investigated computer: `10.4.10.132`.
+- External IP address: `66.171.248.178`.
+- Communication observed at approximately 10-minute intervals.
+
+**Explanation:**
+
+Repeated HTTP communication was observed between the investigated computer and an external server.
+
+The regular communication pattern may indicate automated activity or possible beaconing. Such behaviour can be associated with command-and-control communication.
+
+However, the available network evidence does not confirm that the external server was being used for command and control.
+
+**MITRE ATT&CK Reference:**  
+https://attack.mitre.org/techniques/T1071/001/
+
+### 5.3 Technique Mapping Limitations
+
+The technique mappings are based on observed network behaviour rather than confirmed attacker activity.
+
+Additional endpoint investigation, file analysis, and examination of the complete communication would be required to confirm the techniques.
 
 ## 6. Network Investigation Findings
 
 ### 6.1 Suspicious Executable Download
 
-Wireshark analysis identified an HTTP GET request for the following file:
+During the Wireshark investigation, an HTTP request was identified for the following file:
 
 `/proforma/tkraw_Protected99.exe`
 
-**Evidence:**
+**Evidence details:**
 
-- Request packet: 210
-- Response packet: 3155
-- Source IP: `10.4.10.132`
-- Destination domain: `proforma-invoices.com`
-- Server IP: `217.182.138.150`
-- HTTP response: `200 OK`
-- Content type: `application/x-msdownload`
-- Content length: `2025472` bytes
+| Field | Observation |
+|---|---|
+| HTTP request packet | 210 |
+| HTTP response packet | 3155 |
+| Investigated computer | `10.4.10.132` |
+| External server | `217.182.138.150` |
+| Domain | `proforma-invoices.com` |
+| Requested file | `tkraw_Protected99.exe` |
+| HTTP response | `200 OK` |
+| Content type | `application/x-msdownload` |
+| Content length | 2,025,472 bytes |
 
-The HTTP response indicates that the external server returned executable content to the investigated computer. However, this evidence alone does not confirm that the file was executed.
+**Analysis:**
+
+The investigated computer requested an executable-named file from an external server. The server successfully responded with HTTP 200 OK and an executable-associated content type.
+
+This is an important investigation finding because unexpected executable downloads can be associated with malware delivery.
+
+However, the response does not independently prove that the file was malicious, successfully saved, or executed on the investigated computer.
 
 ### 6.2 Repeated External Communication
 
-Repeated HTTP GET requests were observed from the investigated computer (`10.4.10.132`) to the external IP address `66.171.248.178`.
+Repeated HTTP GET requests were observed from the investigated computer to the following external IP address:
 
-The requests occurred at approximately 10-minute intervals.
+`66.171.248.178`
 
-This repeated communication may indicate automated beaconing activity. However, further investigation is required to determine its purpose and whether it represents command-and-control activity.
+**Evidence details:**
+
+- Investigated computer: `10.4.10.132`
+- External IP address: `66.171.248.178`
+- Communication protocol: HTTP
+- Observed pattern: Repeated requests at approximately 10-minute intervals.
+- HTTP responses: Successful responses were observed.
+
+**Analysis:**
+
+The repeated communication pattern may indicate automated communication between the investigated computer and an external server.
+
+Regular communication can be worth investigating because some malware communicates with external infrastructure at scheduled intervals.
+
+This behaviour may be consistent with beaconing, but the available evidence does not confirm command-and-control activity.
 
 ### 6.3 DNS Investigation
 
-The following external domains and their resolved IP addresses were observed in the DNS traffic:
+The DNS traffic revealed the following domain-to-IP address resolutions:
 
-| Domain | Resolved IP |
+| Domain | Resolved IP Address |
 |---|---|
 | `proforma-invoices.com` | `217.182.138.150` |
 | `bot.whatismyipaddress.com` | `66.171.248.178` |
 | `macwinlogistics.in` | `23.229.162.69` |
 
-These domains and IP addresses have been documented for further investigation. Their malicious status has not been independently confirmed.
+**Analysis:**
 
-### 6.4 Summary of Findings
+These DNS requests show that the investigated computer resolved multiple external domains during the captured network activity.
 
-The network investigation identified the following activities:
+The resolution of `proforma-invoices.com` is relevant to the executable download identified in Section 6.1.
 
-1. An HTTP request for an executable file from `proforma-invoices.com`.
-2. An HTTP 200 OK response containing executable content.
-3. Repeated HTTP GET requests to `66.171.248.178` at approximately 10-minute intervals.
-4. DNS requests resolving the external domains listed in this report.
+The resolution of `bot.whatismyipaddress.com` is relevant to the repeated communication observed with `66.171.248.178`.
 
-These observations provide useful indicators for further malware analysis and defensive monitoring.
+These domains and IP addresses should be treated as investigation indicators. Their malicious status has not been independently confirmed.
 
-## 7. Overall Conclusion
+## 7. Key Indicators Identified
 
-The Red Team investigation identified potentially suspicious network activities in the HawkEye PCAP file, including an executable download and repeated communication with an external server.
+The following indicators were identified during the network investigation.
 
-The observed activities were mapped to relevant MITRE ATT&CK techniques as preliminary findings.
+| Indicator Type | Value | Reason for Investigation |
+|---|---|---|
+| Internal IP | `10.4.10.132` | Investigated computer |
+| External IP | `217.182.138.150` | Server involved in executable download |
+| External IP | `66.171.248.178` | Repeated HTTP communication |
+| External IP | `23.229.162.69` | DNS resolution observed |
+| Domain | `proforma-invoices.com` | Associated with executable download |
+| Domain | `bot.whatismyipaddress.com` | Associated with repeated external communication |
+| Domain | `macwinlogistics.in` | DNS resolution observed |
+| File | `tkraw_Protected99.exe` | Executable-named file requested |
 
-The available network evidence alone does not confirm malware execution or command-and-control activity. Further investigation would be needed to establish these conclusions.
+These indicators can be used by the Blue Team for further investigation and defensive monitoring.
 
-The findings can help the Blue Team investigate suspicious network traffic, develop detection rules and improve defensive monitoring.
+## 8. Red Team Assessment
+
+The investigation identified several activities that deserve further security analysis:
+
+1. An HTTP request for an executable-named file from an external server.
+2. A successful HTTP response containing executable-associated content.
+3. Repeated HTTP communication with an external IP address at approximately 10-minute intervals.
+4. DNS requests resolving multiple external domains.
+5. Network behaviour that may be consistent with automated communication.
+
+The executable download and repeated external communication are the most important findings for further investigation.
+
+The findings should not be treated as proof of malware execution or confirmed command-and-control activity without additional evidence.
+
+## 9. Recommendations for Further Investigation
+
+Based on the identified findings, the following actions are recommended:
+
+- Investigate the downloaded executable using a safe malware-analysis environment.
+- Check the file hash and relevant IP addresses or domains using VirusTotal.
+- Examine endpoint logs to determine whether the executable was executed.
+- Monitor repeated outbound connections to identify further suspicious communication.
+- Review DNS activity for unusual or unexpected domain requests.
+- Create detection rules to monitor suspicious downloads and repeated external communication.
+- Share the identified indicators with the Blue Team for defensive investigation.
+
+## 10. Overall Conclusion
+
+The Red Team investigation of the HawkEye PCAP file identified potentially suspicious network activities, including an executable download, repeated HTTP communication with an external server, and DNS requests involving multiple external domains.
+
+The observed activities were compared with the MITRE ATT&CK framework and mapped to Ingress Tool Transfer (T1105) and Web Protocols (T1071.001) as preliminary technique assessments.
+
+The investigation provides useful network indicators and findings for the Blue Team to examine further.
+
+However, the available PCAP evidence alone does not confirm that the downloaded file was malicious, that it was executed, or that the repeated external communication represented command-and-control activity.
+
+The findings will support the Blue Team investigation and the Purple Team assessment by helping identify areas where defensive monitoring and detection can be improved.
+
+---
+
+**Report Status:** Network investigation completed based on available PCAP evidence. Further file and endpoint investigation is recommended.
