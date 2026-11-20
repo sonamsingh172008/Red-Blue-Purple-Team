@@ -30,7 +30,7 @@ The available network traffic will be examined to identify:
 - SMTP communication.
 - Possible communication with external servers.
 
-Specific IP addresses, domains and timestamps are documented in Section 7.
+Specific IP addresses and domains are documented in Section 6.
 
 ## 5. MITRE ATT&CK Mapping
 
@@ -82,7 +82,7 @@ Wireshark analysis identified an HTTP GET request for:
 - Content type: application/x-msdownload
 - Content length: 2025472 bytes
 
-This activity indicates that an executable file was successfully served to the investigated computer.
+The HTTP response indicates that the external server returned executable content to the investigated computer. However, this evidence alone does not confirm that the file was executed.
 
 ### 6.2 Repeated External Communication
 
