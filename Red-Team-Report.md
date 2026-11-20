@@ -38,9 +38,6 @@ Observed attacker behaviour will be compared with the MITRE ATT&CK framework.
 
 Only techniques supported by the investigation evidence will be included.
 
-## 6. Conclusion
-
-The Red Team investigation aims to understand possible attacker behaviour and provide useful information to help the Blue Team improve security monitoring and detection.
 
 ## 6. Network Investigation Findings
 
