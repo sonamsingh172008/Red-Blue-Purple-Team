@@ -34,10 +34,36 @@ Specific IP addresses, domains and timestamps are documented in Section 7.
 
 ## 5. MITRE ATT&CK Mapping
 
-Observed attacker behaviour will be compared with the MITRE ATT&CK framework.
+The observed network activities were compared with the MITRE ATT&CK framework to identify possible attacker techniques.
 
-Only techniques supported by the investigation evidence will be included.
+### 5.1 Ingress Tool Transfer (T1105)
 
+- **Technique:** Ingress Tool Transfer
+- **Tactic:** Command and Control
+- **Evidence:** HTTP GET request for `tkraw_Protected99.exe`.
+- **Packet:** 210
+- **Explanation:** An executable file was requested from an external server and successfully served to the investigated computer.
+
+This activity is consistent with file transfer behaviour described by MITRE ATT&CK. The malicious nature of the file has not yet been independently verified.
+
+Reference: https://attack.mitre.org/techniques/T1105/
+
+### 5.2 Application Layer Protocol: Web Protocols (T1071.001)
+
+- **Technique:** Web Protocols
+- **Tactic:** Command and Control
+- **Evidence:** Repeated HTTP GET requests to `66.171.248.178`.
+- **Explanation:** Repeated communication over HTTP was observed at approximately 10-minute intervals.
+
+This pattern may be consistent with automated communication. However, additional evidence is needed to confirm command-and-control activity.
+
+Reference: https://attack.mitre.org/techniques/T1071/001/
+
+### 5.3 Mapping Limitations
+
+The technique mappings are preliminary and based on network traffic observations.
+
+Further investigation of the downloaded executable, endpoint activity and HTTP communication is required before confirming malicious behaviour.
 
 ## 6. Network Investigation Findings
 
