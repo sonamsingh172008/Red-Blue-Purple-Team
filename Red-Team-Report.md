@@ -8,8 +8,6 @@ The Red Team approach focuses on understanding possible attacker behaviour, incl
 
 ## 2. Objective
 
-The main objectives of this investigation are:
-
 - Understand suspicious network activity.
 - Study possible malware communication methods.
 - Identify suspicious IP addresses and domains from the available evidence.
@@ -18,9 +16,9 @@ The main objectives of this investigation are:
 
 ## 3. Investigation Scope
 
-This investigation focuses on the HawkEye lab evidence and the network traffic available in the provided PCAP file.
+The investigation focuses on the previously collected HawkEye lab evidence and network traffic.
 
-The investigation includes examining DNS requests, HTTP communication, external network connections and possible indicators of suspicious activity.
+The analysis is limited to the available PCAP file and the network activities observed in Wireshark.
 
 No real-world systems will be attacked.
 
@@ -30,11 +28,11 @@ The available network traffic was examined using Wireshark to identify:
 
 - Suspicious network connections.
 - DNS requests and domain resolutions.
-- HTTP requests and responses.
+- HTTP communication.
 - Possible communication with external servers.
-- Potential indicators of automated or malicious activity.
+- Potential indicators of automated or suspicious activity.
 
-The identified IP addresses and domains are documented in Section 6.
+Specific IP addresses and domains identified during the investigation are documented in Section 6.
 
 ## 5. MITRE ATT&CK Mapping
 
@@ -50,7 +48,7 @@ The observed network activities were compared with the MITRE ATT&CK framework to
 
 This activity is consistent with file transfer behaviour described by MITRE ATT&CK. However, the malicious nature of the file has not been independently verified, and its execution has not been confirmed.
 
-**MITRE Reference:** https://attack.mitre.org/techniques/T1105/
+**Reference:** https://attack.mitre.org/techniques/T1105/
 
 ### 5.2 Application Layer Protocol: Web Protocols (T1071.001)
 
@@ -62,11 +60,11 @@ This activity is consistent with file transfer behaviour described by MITRE ATT&
 
 This pattern may be consistent with automated communication or possible beaconing activity. However, additional evidence is required to confirm command-and-control behaviour.
 
-**MITRE Reference:** https://attack.mitre.org/techniques/T1071/001/
+**Reference:** https://attack.mitre.org/techniques/T1071/001/
 
 ### 5.3 Mapping Limitations
 
-The MITRE ATT&CK technique mappings are preliminary and are based on the network traffic observations.
+The MITRE ATT&CK technique mappings are preliminary and based on the network traffic observations.
 
 Further investigation of the downloaded executable, endpoint activity and HTTP communication is required before confirming malicious behaviour.
 
@@ -97,7 +95,7 @@ Repeated HTTP GET requests were observed from the investigated computer (`10.4.1
 
 The requests occurred at approximately 10-minute intervals.
 
-The repeated communication may indicate automated beaconing activity. However, further investigation is required to determine the purpose of this communication and whether it represents command-and-control activity.
+This repeated communication may indicate automated beaconing activity. However, further investigation is required to determine its purpose and whether it represents command-and-control activity.
 
 ### 6.3 DNS Investigation
 
@@ -109,7 +107,7 @@ The following external domains and their resolved IP addresses were observed in 
 | `bot.whatismyipaddress.com` | `66.171.248.178` |
 | `macwinlogistics.in` | `23.229.162.69` |
 
-These domains and IP addresses have been documented as indicators for further investigation. Their malicious status has not been independently confirmed.
+These domains and IP addresses have been documented for further investigation. Their malicious status has not been independently confirmed.
 
 ### 6.4 Summary of Findings
 
@@ -128,6 +126,6 @@ The Red Team investigation identified potentially suspicious network activities 
 
 The observed activities were mapped to relevant MITRE ATT&CK techniques as preliminary findings.
 
-Although these observations may indicate suspicious behaviour, the available network evidence alone does not confirm malware execution or command-and-control activity.
+The available network evidence alone does not confirm malware execution or command-and-control activity. Further investigation would be needed to establish these conclusions.
 
-The findings can help the Blue Team develop detection rules, investigate suspicious network traffic and improve defensive monitoring.
+The findings can help the Blue Team investigate suspicious network traffic, develop detection rules and improve defensive monitoring.
