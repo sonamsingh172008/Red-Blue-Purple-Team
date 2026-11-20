@@ -30,7 +30,7 @@ The available network traffic will be examined to identify:
 - SMTP communication.
 - Possible communication with external servers.
 
-Specific IP addresses, domains and timestamps are documented in the Network Investigation Findings section
+Specific IP addresses, domains and timestamps are documented in Section 7.
 
 ## 5. MITRE ATT&CK Mapping
 
@@ -87,6 +87,7 @@ The network investigation identified an executable download and repeated communi
 
 These findings provide useful indicators for further malware analysis and defensive monitoring.
 
-## 7. Conclusion
+
+## 7. Overall Conclusion
 
 The Red Team investigation aims to understand possible attacker behaviour and provide useful information to help the Blue Team improve security monitoring and detection.
