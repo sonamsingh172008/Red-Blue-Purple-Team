@@ -30,7 +30,7 @@ The available network traffic will be examined to identify:
 - SMTP communication.
 - Possible communication with external servers.
 
-Specific IP addresses, domains and timestamps will be added after checking the original evidence.
+Specific IP addresses, domains and timestamps are documented in the Network Investigation Findings section
 
 ## 5. MITRE ATT&CK Mapping
 
@@ -42,9 +42,9 @@ Only techniques supported by the investigation evidence will be included.
 
 The Red Team investigation aims to understand possible attacker behaviour and provide useful information to help the Blue Team improve security monitoring and detection.
 
-## 7. Network Investigation Findings
+## 6. Network Investigation Findings
 
-### 7.1 Suspicious Executable Download
+### 6.1 Suspicious Executable Download
 
 Wireshark analysis identified an HTTP GET request for:
 
@@ -61,7 +61,7 @@ Wireshark analysis identified an HTTP GET request for:
 
 This activity indicates that an executable file was successfully served to the investigated computer.
 
-### 7.2 Repeated External Communication
+### 6.2 Repeated External Communication
 
 Repeated HTTP GET requests were observed from 10.4.10.132 to 66.171.248.178.
 
@@ -69,7 +69,7 @@ The requests occurred approximately every 10 minutes.
 
 This regular communication may indicate automated beaconing activity and requires further investigation.
 
-### 7.3 DNS Investigation
+### 6.3 DNS Investigation
 
 The following domains were observed:
 
@@ -81,8 +81,12 @@ The following domains were observed:
 
 These domains have been identified for further investigation. Their malicious status has not been independently confirmed.
 
-### 7.4 Conclusion
+### 6.4 Summary of Findings
 
 The network investigation identified an executable download and repeated communication with an external server.
 
 These findings provide useful indicators for further malware analysis and defensive monitoring.
+
+## 7. Conclusion
+
+The Red Team investigation aims to understand possible attacker behaviour and provide useful information to help the Blue Team improve security monitoring and detection.
