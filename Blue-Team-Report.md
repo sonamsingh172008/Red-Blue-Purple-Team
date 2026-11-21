@@ -40,7 +40,6 @@ Repeated DNS queries were observed for the following domains:
 
 Repeated DNS queries were observed for these domains during the captured network activity. This activity may indicate automated network communication and should be investigated further.
 
-This repeated pattern may indicate automated network communication and should be investigated further.
 
 ### 3.2 Suspicious Domain Related to File Download
 
