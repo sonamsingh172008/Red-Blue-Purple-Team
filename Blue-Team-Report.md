@@ -38,7 +38,7 @@ Repeated DNS queries were observed for the following domains:
 | `bot.whatismyipaddress.com` | `66.171.248.178` |
 | `macwinlogistics.in` | `23.229.162.69` |
 
-Both domains were queried repeatedly at approximately 10-minute intervals between 20:38 and 21:38 on April 10, 2019.
+Repeated DNS queries were observed for these domains during the captured network activity. This activity may indicate automated network communication and should be investigated further.
 
 This repeated pattern may indicate automated network communication and should be investigated further.
 
