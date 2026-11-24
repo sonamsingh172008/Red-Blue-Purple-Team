@@ -30,7 +30,7 @@ The main objectives of this assessment were:
 | Elastic Security | Detection-rule configuration review |
 | GitHub | Store reports and detection-rule files |
 
-Elastic/Kibana was not accessible during the final validation stage. Therefore, live detection and alert generation could not be confirmed.
+Elastic Security was accessed during the final validation stage. All three detection rules were confirmed enabled. Successful scheduled executions were verified for Windows Credential Stuffing Detection and PowerShell Script Block Monitoring. Actual detection accuracy remains unverified.
 
 ## 4. Red Team Findings Reviewed
 
@@ -105,7 +105,7 @@ This rule looks for repeated failed Windows login attempts.
 
 This rule monitors PowerShell script-block activity.
 
-All three exported configurations were marked as enabled. However, actual execution and alert generation were not verified because Elastic/Kibana was inaccessible.
+All three exported detection-rule configurations were enabled. Successful scheduled executions were confirmed for Windows Credential Stuffing Detection and PowerShell Script Block Monitoring. The displayed executions generated zero alerts. Execution results for Sysmon DNS Monitoring were not independently verified.
 
 ## 6. Purple Team Detection Gap Analysis
 
@@ -205,7 +205,7 @@ This process helps both teams understand how security weaknesses can be identifi
 | DNS activity reviewed | Completed |
 | Three detection-rule configurations reviewed | Completed |
 | Detection gaps identified | Completed |
-| Live alert generation | Not verified |
+| Live alert generation | No alerts in reviewed executions; detection accuracy not verified |
 | Practical detection accuracy | Not verified |
 | Detection improvement recommendations | Completed |
 
@@ -222,7 +222,7 @@ The main lesson from this project is that creating detection rules is only one p
 Although live alert generation could not be verified during this assessment, the investigation and configuration review provided a foundation for improving detection coverage and collaboration between Red and Blue Teams.
 
 
-**Overall Project Status:** Red Team findings reviewed, Blue Team investigation documented, and Purple Team improvement recommendations prepared. Live detection validation remains pending.
+**Overall Project Status:** Red Team findings reviewed, Blue Team investigation documented, and Purple Team improvement recommendations prepared. All three detection rules were enabled, and successful executions were confirmed for two rules. Practical detection accuracy remains to be validated.
 
 ##  Detection Rule Validation Results
 
