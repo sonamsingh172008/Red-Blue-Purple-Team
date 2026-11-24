@@ -239,7 +239,6 @@ The main lesson from this project is that creating detection rules is only one p
 
 Although live alert generation could not be verified during this assessment, the investigation and configuration review provided a foundation for improving detection coverage and collaboration between Red and Blue Teams.
 
-
 **Overall Project Status:** Red Team findings reviewed, Blue Team investigation documented, and Purple Team improvement recommendations prepared. All three detection rules were enabled, and successful executions were confirmed for two rules. Practical detection accuracy remains to be validated.
 
 
