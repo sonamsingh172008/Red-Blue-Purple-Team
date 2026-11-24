@@ -107,6 +107,24 @@ This rule monitors PowerShell script-block activity.
 
 All three exported detection-rule configurations were enabled. Successful scheduled executions were confirmed for Windows Credential Stuffing Detection and PowerShell Script Block Monitoring. The displayed executions generated zero alerts. Execution results for Sysmon DNS Monitoring were not independently verified.
 
+##  Detection Rule Validation Results
+
+The three Elastic detection rules were enabled and reviewed through the Detection Rules (SIEM) interface.
+
+### Execution Results
+
+- **Windows Credential Stuffing Detection:** Recent scheduled executions completed successfully. An earlier execution gap was marked as filled, with 100% event-time coverage.
+- **PowerShell Script Block Monitoring:** Recent scheduled executions completed successfully. An earlier execution gap was also marked as filled, with 100% event-time coverage.
+- **Sysmon DNS Monitoring:** Enabled. Its detection accuracy and alert generation were not independently confirmed in this validation.
+
+### Observations
+
+The reviewed execution records showed successful scheduled runs. However, zero alerts were created in the displayed executions. Successful execution confirms that the rules ran without reported errors; it does not independently prove that they detect every intended suspicious activity.
+
+### Conclusion
+
+The Elastic detection rules were enabled and their execution status was reviewed. The available results confirmed successful execution for the Windows Credential Stuffing and PowerShell Script Block Monitoring rules. Further testing with relevant security events would be required to confirm detection accuracy.
+
 ## 6. Purple Team Detection Gap Analysis
 
 The Purple Team compared the suspicious activity with the existing detection rules.
@@ -224,20 +242,4 @@ Although live alert generation could not be verified during this assessment, the
 
 **Overall Project Status:** Red Team findings reviewed, Blue Team investigation documented, and Purple Team improvement recommendations prepared. All three detection rules were enabled, and successful executions were confirmed for two rules. Practical detection accuracy remains to be validated.
 
-##  Detection Rule Validation Results
 
-The three Elastic detection rules were enabled and reviewed through the Detection Rules (SIEM) interface.
-
-### Execution Results
-
-- **Windows Credential Stuffing Detection:** Recent scheduled executions completed successfully. An earlier execution gap was marked as filled, with 100% event-time coverage.
-- **PowerShell Script Block Monitoring:** Recent scheduled executions completed successfully. An earlier execution gap was also marked as filled, with 100% event-time coverage.
-- **Sysmon DNS Monitoring:** Enabled. Its detection accuracy and alert generation were not independently confirmed in this validation.
-
-### Observations
-
-The reviewed execution records showed successful scheduled runs. However, zero alerts were created in the displayed executions. Successful execution confirms that the rules ran without reported errors; it does not independently prove that they detect every intended suspicious activity.
-
-### Conclusion
-
-The Elastic detection rules were enabled and their execution status was reviewed. The available results confirmed successful execution for the Windows Credential Stuffing and PowerShell Script Block Monitoring rules. Further testing with relevant security events would be required to confirm detection accuracy.
